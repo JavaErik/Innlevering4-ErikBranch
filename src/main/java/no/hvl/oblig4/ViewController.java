@@ -2,17 +2,22 @@ package no.hvl.oblig4;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.RequestDispatcher;
 
 @Controller
 public class ViewController {
+
+    @Autowired
+    private PassordService passordService;
 
     private Deltagere deltagere = new Deltagere();
 
@@ -35,11 +40,21 @@ public class ViewController {
 
     @PostMapping("/paameldt")
     public String display3(@ModelAttribute Deltager deltager, Model model) {
+        String salt = passordService.genererTilfeldigSalt();
+        
+        // Hash the password with the generated salt
+        String hashedPassword = passordService.hashMedSalt(deltager.getPassord(), salt);
+
+        // Set the hashed password and salt in the Deltager object
+        deltager.setPassord(hashedPassword);
+        deltager.setSalt(salt); // Ensure `Deltager` has a `salt` field
+
+        // Add the Deltager to the list
         this.deltagere.addDeltager(deltager);
+
         model.addAttribute("deltager", deltager);
         return "paameldt";
     }
-    
-}  
+}
     
 
