@@ -34,5 +34,32 @@
         </tr>
       </c:forEach>
     </table>
+     <!-- Login Button -->
+     <div class="login-section">
+      <form action="/loginn" method="post">
+          <button type="submit" class="loggut button">Logg ut</button>
+      </form>
+  </div>
+
+  <style>
+      .highlight {
+          background-color: #d4edda;
+      }
+      .login-section {
+          margin-top: 20px;
+          text-align: center;
+      }
+      .login-button {
+          background-color: #007bff;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+          font-size: 16px;
+      }
+      .login-button:hover {
+          background-color: #0056b3;
+      }
+  </style>
   </body>
 </html>

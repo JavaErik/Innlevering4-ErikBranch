@@ -55,6 +55,22 @@ public class ViewController {
         model.addAttribute("deltager", deltager);
         return "paameldt";
     }
+    @GetMapping("/loginn")
+    public String visInnlogging(Model model) {
+        return "loginn";
+    }
+    @PostMapping("/logginn")
+    public String handleLogin(@RequestParam String mobil, @RequestParam String passord) {
+        // TODO: Implementer innloggingslogikk her
+        return "redirect:deltagere";
+    }
+        @PostMapping("/loggut")
+    public String handleLogout() {
+        // TODO: Implementer utloggingslogikk her
+        return "redirect:loginn";
+    }
 }
+
+
     
 
